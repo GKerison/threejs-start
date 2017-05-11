@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转立方体</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../libs/three.min.js"></script>
+    <script>
+        //创建场景
+        var scene = new THREE.Scene();
+        //创建相机
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        //创建渲染器
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        //创建盒子形状
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        //创建盒子材质
+        var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        //创建盒子
+        var cube = new THREE.Mesh(geometry, material);
+        //添加到场景中
+        scene.add(cube);
+        //设置相机位置，避免遮挡
+        camera.position.z = 5;
+        //渲染场景
+        var render = function () {
+            requestAnimationFrame(render);
+
+            //绕Y轴旋转
+            cube.rotation.y += 0.1;
+
+            renderer.render(scene, camera);
+        };
+        render();
+    </script>
+</body>
+
+</html>
